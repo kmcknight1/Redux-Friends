@@ -13,5 +13,24 @@ export const login = creds => dispatch => {
       dispatch({ type: LOGIN_SUCCESS });
       return true;
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({ type: LOGIN_FAIL, payload: err.response.message });
+    });
+};
+
+export const FETCH_FRIENDS_START = "FETCH_FRIENDS_START";
+export const FETCH_FRIENDS_SUCCESS = "FETCH_FRIENDS_SUCCESS";
+export const FETCH_FRIENDS_FAIL = "FETCH_FRIENDS_FAIL";
+export const getFriends = () => dispatch => {
+  dispatch({ type: FETCH_FRIENDS_START });
+  axiosWithAuth()
+    .get("/friendss")
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: FETCH_FRIENDS_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err.message);
+      dispatch({ type: FETCH_FRIENDS_FAIL, payload: err.message });
+    });
 };

@@ -1,7 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-const FriendsList = () => {
-  return <h3>Frendz</h3>;
-};
+import { getFriends } from "../actions";
 
-export default FriendsList;
+import Friend from "./Friend";
+
+class FriendsList extends Component {
+  componentDidMount() {
+    this.props.getFriends();
+  }
+
+  render() {
+    return (
+      <>
+        <div className="title">
+          <h1>My Friends</h1>
+        </div>
+      </>
+    );
+  }
+}
+
+const mapStateToProps = ({ error, friends, fetchingFriends }) => ({
+  error,
+  friends,
+  fetchingFriends
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getFriends }
+  )(FriendsList)
+);
