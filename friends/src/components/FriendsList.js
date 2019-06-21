@@ -1,33 +1,47 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import { getFriends } from "../actions";
 
 import Friend from "./Friend";
-import AddFriend from "./AddFriend";
 
 class FriendsList extends Component {
-  // state = {
-  //   newFriend: ''
-  // };
-
   componentDidMount() {
     this.props.getFriends();
   }
+
+  logout = () => {
+    localStorage.clear();
+    this.props.history.push("/login");
+  };
 
   render() {
     return (
       <>
         <div className="title">
-          <h1>My Friends</h1>
+          <h2>My Friends</h2>
+          <button onClick={this.logout}>Log Out</button>
         </div>
         <div>
           {this.props.friends.map((friend, index) => (
             <Friend friend={friend} key={index} index={index} />
           ))}
         </div>
-        <Link to="/addnewfriend">Add New Friend</Link>
+        <Link
+          to="/addnewfriend"
+          style={{
+            textDecoration: "none",
+            border: "1px solid grey",
+            borderRadius: "5px",
+            color: "blue",
+            fontWeight: "bold",
+            padding: "0.2rem 0.5rem 0.2rem 0.5rem",
+            backgroundColor: "lightgrey"
+          }}
+        >
+          Add New Friend
+        </Link>
       </>
     );
   }
