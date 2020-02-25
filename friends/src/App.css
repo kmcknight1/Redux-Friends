@@ -1,0 +1,18 @@
+.App {
+  text-align: center;
+}
+
+button {
+  font-size: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  color: blue;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  background-color: lightgrey;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
